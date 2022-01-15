@@ -15,8 +15,8 @@ git commit -m "$date_stamp"
 echo "git branch -M main"
 git branch -M main
 
-echo "git remote add origin https://github.com/GuidoRiosCiaffaroni/wp_admin_role.git"
-git remote add origin https://github.com/GuidoRiosCiaffaroni/wp_admin_role.git
+echo "git remote add origin https://github.com/GuidoRiosCiaffaroni/wp_dashboard.git"
+git remote add origin https://github.com/GuidoRiosCiaffaroni/wp_dashboard.git
 
 echo "git push -u origin main"
 git push -u origin main
