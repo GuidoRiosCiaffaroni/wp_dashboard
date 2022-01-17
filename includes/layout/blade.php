@@ -2,136 +2,12 @@
 /*****************************************************************************************************************************************************************/
 
 /* ************************************************************************************* */
-/* Formulario para insertar datos                                                        */
+/* Insertar datos                                                                        */
 /* ************************************************************************************* */
 
-function form_insert()
+function flatline_insert()
 {
     
-security(); // Funcion de Seguridad 
-
-
-/*Variables globales*/
-global $wpdb;                   // datos del sistema
-global $wpbc_db_version;        // Version del base de datos - utilizado para las actualizaciones
-global $sist_name_file;         // Nombre de la tabla de General del sistema 
-global $sist_name_departament;  // Nombre de la tabla de Depart 
-global $tabla_crud;             // nombre de la tabla de sistema
-global $user_id;                // ID del usuario
-global $status_user;            // Perfil del usuario 
-global $user_dirname;
-global $upload_dir;
-global $dir_file;               // Nombre de archivo a subir
-global $global_data;            // Almacenamiento de datos Globales
-global $file_name;  
-global $wp_session;             // Inicio sesion variables
-global $global_data;
-
- 
-    echo '<form action="'. get_the_permalink() .'" method="post" id="form_aspirante" class="cuestionario" enctype="multipart/form-data">';
-        wp_nonce_field('graba_insert', 'insert_nonce');
-
-
-
-
-
-/* ************************************************************************************* */
-// $nint = sanitize_text_field($_POST['nint']);
-
-echo '
-        <div class="container d-flex justify-content-center">
-            <div class=\'col-md-5\'>
-                <div class="form-group">
-                <label for="floatingInput" class="form-label"> N° int </label> 
-                    <div class=\'input-group\'>
-                        <input id="nint" name="nint" type="text" class="form-control" placeholder="xx-xx-xx-xx-xx" >
-                            <span class="input-group-addon"> 
-                                <span class="glyphicon glyphicon-pencil">
-                            </span> 
-                        </span> 
-                    </div>
-                    
-                    <div id="nint" class="form-text">We\'ll never share your email with anyone else.</div>
-
-                </div>
-            </div>
-        </div>
-';
-/* ************************************************************************************* */
-
-/* ************************************************************************************* */
-//
-echo '
-        <div class="container d-flex justify-content-center">
-            <div class=\'col-md-5\'>
-                <div class="form-group">
-                <label for="floatingInput" class="form-label"> Fecha </label> 
-                    <!-- <div class=\'input-group date\' id=\'datetimepicker7\'> -->
-                    <div class=\'input-group date\' id=\'datetimepicker7\'>  
-                        <input name="date" id="date" type=\'text\' class="form-control" placeholder="12/07/2021 12:00 AM"> 
-                            <span class="input-group-addon"> 
-                            <span class="glyphicon glyphicon-calendar">
-                            </span> 
-                        </span> 
-                    </div>
-
-                    <div id="nint" class="form-text">We\'ll never share your email with anyone else.</div>
-
-                </div>
-            </div>
-        </div>
-';
-/* ************************************************************************************* */
-
-
-/* ************************************************************************************* */
-//
-echo '
-        <div class="container d-flex justify-content-center">
-            <div class=\'col-md-5\'>
-                <div class="form-group">
-                <label for="floatingInput" class="form-label"> Archivo  </label> 
-                    <div class=\'input-group\' id="customFile"> 
-                        <input type="file" class="form-control" id="customFile" name="customFile"> 
-                            <span class="input-group-addon"> 
-                            <span class="glyphicon glyphicon-open-file">
-                            </span> 
-                        </span> 
-                    </div>
-
-                    <div id="nint" class="form-text">We\'ll never share your email with anyone else.</div>
-                     
-                </div>
-            </div>
-        </div>
-';
-/* ************************************************************************************* */
-
-
-
-/* ************************************************************************************* */
-//
-    echo '         <div class="form-input">';
-    echo '              <input type="submit" value="Enviar">';
-    echo '          </div>';
-    echo '      </form>';
-
-/* ************************************************************************************* */
-
-   
-
-}
-
-/*****************************************************************************************************************************************************************/
-
-/* ************************************************************************************* */
-/* Formulario para editar datos                                                          */
-/* ************************************************************************************* */
-function form_edit()
-{
-
-security(); // Funcion de Seguridad     
-
 /*Variables globales*/
 global $wpdb;                   // datos del sistema
 global $wpbc_db_version;        // Version del base de datos - utilizado para las actualizaciones
@@ -149,142 +25,123 @@ global $wp_session;             // Inicio sesion variables
 global $global_data;
 
 $tabla_crud = $wpdb->prefix . $sist_name_file; // objeto base de datos
-$id      = sanitize_text_field($_GET['id']); // Datos obtenidos desde frontend_update.php id
-$key_id  = sanitize_text_field($_GET['key_id']); // Datos obtenidos desde frontend_update.php key_id
+$flatline 		= sanitize_text_field($_GET['flatline']); // Datos obtenidos desde frontend_update.php id
+$token  		= sanitize_text_field($_GET['token']); // Datos obtenidos desde frontend_update.php key_id
 
-$query = 'SELECT * FROM '.$tabla_crud.' WHERE id = '.$id;
-$registros = $wpdb->get_results($query);
-
-// nombre de los campos de la tabla
-  foreach ($registros as $registros) 
-  {
-    $id = $registros->id;
-    $user_id = $registros->user_id; 
-    $key_id = $registros->key_id; 
-    $nint = $registros->nint;
-    $date = $registros->date;
-    $dir_file_linux = $registros->dir_file_linux;
-    $dir_file_win = $registros->dir_file_win;
-    $dir_file = $registros->dir_file;
-    $status_id = $registros->status_id;
-    $create_at = $registros->create_at;  
-  }
-
-    echo '<form action="'. get_the_permalink() .'" method="post" id="form_insert" class="cuestionario" enctype="multipart/form-data">';
-        wp_nonce_field('graba_insert', 'insert_nonce');
+echo " --> ". $flatline . "</br>" ;
+echo " --> ". $token . "</br>";
 
 
+    $global_data = array(
+                'flatline'           => $flatline,
 
+            );
 
-/* ************************************************************************************* */
-// Registro de datos 
-// Datos obtenidos desde el // Datos obtenidos desde frontend_update.php id
-//
-
-echo '
-    <input id="confir_insert" name="edit_id" type="hidden"  value="'.$id.'" >
-    <input id="confir_insert" name="edit_key_id" type="hidden"  value="'.$key_id.'" >
-    <input id="confir_insert" name="confir_insert" type="hidden"  value="1" >
-';
-/* ************************************************************************************* */
-
-
-
-/* ************************************************************************************* */
-// 
-// $nint = sanitize_text_field($_POST['nint']);
-//
-echo '
-        <div class="container d-flex justify-content-center">
-            <div class=\'col-md-5\'>
-                <div class="form-group">
-                <label for="floatingInput" class="form-label"> N° int </label> 
-                    <div class=\'input-group\'>
-                        <input id="nint" name="edit_nint" type="text" class="form-control" value="'.$nint.'" >
-                            <span class="input-group-addon"> 
-                                <span class="glyphicon glyphicon-pencil">
-                            </span> 
-                        </span> 
-                    </div>
-                    
-                    <div id="nint" class="form-text">El dato actualmente es : '.$nint.'</div>
-
-                </div>
-            </div>
-        </div>
-';
-/* ************************************************************************************* */
-
-/* ************************************************************************************* */
-//
-//
-//
-echo '
-        <div class="container d-flex justify-content-center">
-            <div class=\'col-md-5\'>
-                <div class="form-group">
-                <label for="floatingInput" class="form-label"> Fecha </label> 
-                    <!-- <div class=\'input-group date\' id=\'datetimepicker7\'> -->
-                    <div class=\'input-group date\' id=\'datetimepicker7\'>  
-                        <input id="date" name="edit_date"  type=\'text\' class="form-control" value="'.$date.'"> 
-                            <span class="input-group-addon"> 
-                            <span class="glyphicon glyphicon-calendar">
-                            </span> 
-                        </span> 
-                    </div>
-
-                    <div id="nint" class="form-text">La fecha actual es '.$date.' </div>
-
-                </div>
-            </div>
-        </div>
-';
-/* ************************************************************************************* */
-
-
-/* ************************************************************************************* */
-//
-//
-//
-echo '
-        <div class="container d-flex justify-content-center">
-            <div class=\'col-md-5\'>
-                <div class="form-group">
-                <label for="floatingInput" class="form-label"> Archivo  </label> 
-                    <div class=\'input-group\' id="customFile"> 
-                        <input type="file" class="form-control" id="edit_customFile" name="edit_customFile" value="'. $dir_file .'"> 
-                            <span class="input-group-addon"> 
-                            <span class="glyphicon glyphicon-open-file">
-                            </span> 
-                        </span> 
-                    </div>
-
-                    <div id="nint" class="form-text">El archivo actual es : '. $dir_file .'</div>
-                     
-                </div>
-            </div>
-        </div>
-';
-/* ************************************************************************************* */
-
-
-
-/* ************************************************************************************* */
-//
-//
-//
-    echo '         <div class="form-input">';
-    echo '              <input type="submit" value="Enviar">';
-    echo '          </div>';
-    echo '      </form>';
-
-/* ************************************************************************************* */
-
-
+    $wpdb->insert($tabla_crud,$global_data);
 
 
 
 }
+
+/*****************************************************************************************************************************************************************/
+function DahsBoard_Resume() 
+{
+
+$FirstTimeRegister = '1642091599';
+$LastTimeRegister = time();
+$DiftTimeRegister =  $LastTimeRegister - $FirstTimeRegister;
+
+$date = new DateTime();
+$date->format('Y-m-d H:i:s');
+
+$FirstDateServer = '2022-01-13 16:45:38';
+$LastDateServer = $date->format('Y-m-d H:i:s');
+$DiftDateServer = $LastDateServer - $FirstDateServer; 
+
+
+
+
+
+
+
+
+
+
+echo '
+                        <div class="content">
+                            <div class="btn-controls">
+
+                                <div class="btn-box-row row-fluid">
+                                    <a href="#" class="btn-box big span4">
+                                    	<i class=" icon-time"></i>
+                                    	<b>'.$LastTimeRegister.'</b>
+                                    	<p class="text-muted">Utimo Registro General</p>
+                                    </a>
+                     
+                                    <a href="#" class="btn-box big span4">
+                                    	<i class=" icon-time"></i>
+                                    	<b>'.$FirstTimeRegister.'</b>
+                                    	<p class="text-muted">Primer Registro General</p>
+                                    </a>
+
+                                    <a href="#" class="btn-box big span4">
+                                    	<i class="icon-minus"></i>
+                                    	<b>'.$DiftTimeRegister.'</b>
+                                        <p class="text-muted">Diferencia General</p>
+                                    </a>
+                                </div>
+
+
+                                <div class="btn-box-row row-fluid">
+                                    <a href="#" class="btn-box big span4">
+                                    	<i class=" icon-time"></i>
+                                    	<b>'.$LastDateServer.'</b>
+                                    	<p class="text-muted">Ultimo Registro Servidor</p>
+                                    </a>
+
+                                    <a href="#" class="btn-box big span4">
+                                    	<i class=" icon-time"></i>
+                                    	<b>'.$FirstDateServer.'</b>
+                                    	<p class="text-muted">Primer Registro Servidor</p>
+                                    </a>
+
+                                    <a href="#" class="btn-box big span4">
+                                    	<i class="icon-minus"></i>
+                                    	<b>'.$DiftDateServer.'</b>
+                                        <p class="text-muted">Diferencia General Servidor</p>
+                                    </a>
+                                </div>
+
+                                <div class="btn-box-row row-fluid">
+                                    <a href="#" class="btn-box big span4">
+                                    	<i class=" icon-time"></i>
+                                    	<b>'.$LastDateServer.'</b>
+                                    	<p class="text-muted">Ultimo Registro Local</p>
+                                    </a>
+
+                                    <a href="#" class="btn-box big span4">
+                                    	<i class=" icon-time"></i>
+                                    	<b>'.$FirstDateServer.'</b>
+                                    	<p class="text-muted">Primer Registro Local</p>
+                                    </a>
+
+                                    <a href="#" class="btn-box big span4">
+                                    	<i class="icon-minus"></i>
+                                    	<b>'.$DiftDateServer.'</b>
+                                        <p class="text-muted">Diferencia General Local</p>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+
+';
+
+
+} 
+
+
+/*****************************************************************************************************************************************************************/
 
 
 

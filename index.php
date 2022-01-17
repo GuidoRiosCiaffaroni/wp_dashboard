@@ -23,17 +23,17 @@ defined( 'ABSPATH' ) or die( '¡Sin trampas!' );
 
 /*Importa funciones de instalacion*/
 
-require_once plugin_dir_path( __FILE__ ) . 'includes/install/install.php'; // Instalacion del Sistema Base de datos
+require_once plugin_dir_path( __FILE__ ) . 'includes/install/install.php';      // Instalacion del Sistema Base de datos
+require_once plugin_dir_path( __FILE__ ) . 'includes/layout/blade.php';         // Funciones para la generacion de Blade 
 
 
 /*Funciones requeridas para administrar y gestionar */
 
-// Funciones requeridas para gestionar archivos
-require_once(ABSPATH . "wp-admin" . '/includes/image.php');
-require_once(ABSPATH . "wp-admin" . '/includes/file.php');
-require_once(ABSPATH . "wp-admin" . '/includes/media.php');
-// Funciones requeridas para gestionar la base de datos
-require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+require_once(ABSPATH . "wp-admin" . '/includes/image.php');                     // Funciones para gestionar Imagenes 
+require_once(ABSPATH . "wp-admin" . '/includes/file.php');                      // Funciones para gestionar Archivos
+require_once(ABSPATH . "wp-admin" . '/includes/media.php');                     // Funciones para gestionar Archivos multimadia
+require_once(ABSPATH . 'wp-admin/includes/upgrade.php');                        // Funciones requeridas para gestionar la base de datos
+
 
 /*Variables globales*/
 global $wpdb;                   // Datos del sistema
@@ -60,15 +60,12 @@ $sist_name_file = 'flatline';
 
 /* Instalacion de Base de datos */
 pdb_install_flatline();
-
 register_activation_hook(__FILE__, 'pdb_install_flatline');
 
 
-
-
-
-
-
+/* Adquirir Datos */
+flatline_insert();
+register_activation_hook(__FILE__, 'pdb_install_flatline');
 
 
 
@@ -85,107 +82,6 @@ add_shortcode('ShortCode_DahsBoard_Resume', 'DahsBoard_Resume');
 /*Fin crear shortcode enla pagina de inicio*/ 
 
 /*Inicio funcion para crear shortcode en la pagina de inicio */
-function DahsBoard_Resume() 
-{
-
-$FirstTimeRegister = '1642091599';
-$LastTimeRegister = time();
-$DiftTimeRegister =  $LastTimeRegister - $FirstTimeRegister;
-
-$date = new DateTime();
-$date->format('Y-m-d H:i:s');
-
-$FirstDateServer = '2022-01-13 16:45:38';
-$LastDateServer = $date->format('Y-m-d H:i:s');
-$DiftDateServer = $LastDateServer - $FirstDateServer; 
-
-
-echo '
-                        <div class="content">
-                            <div class="btn-controls">
-
-                                <div class="btn-box-row row-fluid">
-                                    <a href="#" class="btn-box big span4">
-                                    	<i class=" icon-time"></i>
-                                    	<b>'.$LastTimeRegister.'</b>
-                                    	<p class="text-muted">Utimo Registro General</p>
-                                    </a>
-                     
-                                    <a href="#" class="btn-box big span4">
-                                    	<i class=" icon-time"></i>
-                                    	<b>'.$FirstTimeRegister.'</b>
-                                    	<p class="text-muted">Primer Registro General</p>
-                                    </a>
-
-                                    <a href="#" class="btn-box big span4">
-                                    	<i class="icon-minus"></i>
-                                    	<b>'.$DiftTimeRegister.'</b>
-                                        <p class="text-muted">Diferencia General</p>
-                                    </a>
-                                </div>
-
-
-                                <div class="btn-box-row row-fluid">
-                                    <a href="#" class="btn-box big span4">
-                                    	<i class=" icon-time"></i>
-                                    	<b>'.$LastDateServer.'</b>
-                                    	<p class="text-muted">Ultimo Registro Servidor</p>
-                                    </a>
-
-                                    <a href="#" class="btn-box big span4">
-                                    	<i class=" icon-time"></i>
-                                    	<b>'.$FirstDateServer.'</b>
-                                    	<p class="text-muted">Primer Registro Servidor</p>
-                                    </a>
-
-                                    <a href="#" class="btn-box big span4">
-                                    	<i class="icon-minus"></i>
-                                    	<b>'.$DiftDateServer.'</b>
-                                        <p class="text-muted">Diferencia General Servidor</p>
-                                    </a>
-                                </div>
-
-                                <div class="btn-box-row row-fluid">
-                                    <a href="#" class="btn-box big span4">
-                                    	<i class=" icon-time"></i>
-                                    	<b>'.$LastDateServer.'</b>
-                                    	<p class="text-muted">Ultimo Registro Local</p>
-                                    </a>
-
-                                    <a href="#" class="btn-box big span4">
-                                    	<i class=" icon-time"></i>
-                                    	<b>'.$FirstDateServer.'</b>
-                                    	<p class="text-muted">Primer Registro Local</p>
-                                    </a>
-
-                                    <a href="#" class="btn-box big span4">
-                                    	<i class="icon-minus"></i>
-                                    	<b>'.$DiftDateServer.'</b>
-                                        <p class="text-muted">Diferencia General Local</p>
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-
-';
-
-
-} 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
