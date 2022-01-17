@@ -28,12 +28,12 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/layout/blade.php';         
 
 
 /*Funciones requeridas para administrar y gestionar */
-
+/*
 require_once(ABSPATH . "wp-admin" . '/includes/image.php');                     // Funciones para gestionar Imagenes 
 require_once(ABSPATH . "wp-admin" . '/includes/file.php');                      // Funciones para gestionar Archivos
 require_once(ABSPATH . "wp-admin" . '/includes/media.php');                     // Funciones para gestionar Archivos multimadia
 require_once(ABSPATH . 'wp-admin/includes/upgrade.php');                        // Funciones requeridas para gestionar la base de datos
-
+*/
 
 /*Variables globales*/
 global $wpdb;                   // Datos del sistema
@@ -59,13 +59,13 @@ $sist_name_file = 'flatline';
 
 
 /* Instalacion de Base de datos */
-pdb_install_flatline();
-register_activation_hook(__FILE__, 'pdb_install_flatline');
+//pdb_install_flatline();
+//register_activation_hook(__FILE__, 'pdb_install_flatline');
 
 
 /* Adquirir Datos */
-flatline_insert();
-register_activation_hook(__FILE__, 'pdb_install_flatline');
+//flatline_insert();
+//register_activation_hook(__FILE__, 'pdb_install_flatline');
 
 
 
@@ -78,7 +78,7 @@ register_activation_hook(__FILE__, 'pdb_install_flatline');
 /******************************************************************************************/
 
 /*Inicio crear shortcode en la pagina de inicio */
-add_shortcode('ShortCode_DahsBoard_Resume', 'DahsBoard_Resume');
+//add_shortcode('ShortCode_DahsBoard_Resume', 'DahsBoard_Resume');
 /*Fin crear shortcode enla pagina de inicio*/ 
 
 /*Inicio funcion para crear shortcode en la pagina de inicio */
