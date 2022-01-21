@@ -40,8 +40,7 @@ global $global_data;            // Almacenamiento de datos Globales
 
 
 
-
-$tabla_crud = $wpdb->prefix . $sist_name_file;              // objeto base de datos
+$table_name_flatline = $wpdb->prefix . $sist_name_flatline;  // objeto base de datos
 $flatline 		= sanitize_text_field($_GET['flatline']);   // Datos obtenidos desde frontend_update.php id
 
 
@@ -55,7 +54,7 @@ echo " --> ". $token . "</br>";
 
             );
 
-    $wpdb->insert($tabla_crud,$global_data);
+    $wpdb->insert($table_name_flatline,$global_data);
 
 
 
