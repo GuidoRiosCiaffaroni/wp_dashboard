@@ -78,23 +78,11 @@ $sist_name_flatline = 'flatline';
 // Descripcion  : Registro de hooks
 /******************************************************************************************/
 register_activation_hook(__FILE__, 'pdb_install_flatline');			// Instalacion de Base de datos 
-register_activation_hook(__FILE__, 'insert_flatline');			// Adquirir Datos
+register_activation_hook(__FILE__, 'insert_flatline');				// Adquirir Datos
 
 
 
 
-/******************************************************************************************/
-// Archivo : index.php
-// Funcion : Kfp_DahsBoard_resume() 'funcion para el ingreso de datos'
-// Objetos : $wpdb->insert
-
-/******************************************************************************************/
-
-/*Inicio crear shortcode en la pagina de inicio */
-//add_shortcode('ShortCode_DahsBoard_Resume', 'DahsBoard_Resume');
-/*Fin crear shortcode enla pagina de inicio*/ 
-
-/*Inicio funcion para crear shortcode en la pagina de inicio */
 
 
 

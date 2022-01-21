@@ -45,7 +45,6 @@ $flatline 		= sanitize_text_field($_GET['flatline']);   // Datos obtenidos desde
 
 
 echo " --> ". $flatline . "</br>" ;
-echo " --> ". $token . "</br>";
 
 // INSERT INTO `wp_flatline` (`id`, `flatline`, `create_at`) VALUES (NULL, '1', current_timestamp());
 
@@ -63,13 +62,6 @@ echo " --> ". $token . "</br>";
 add_shortcode('ShortCode_insert_flatline', 'insert_flatline'); // crear ShortCode_insert_flatline 
 
 /******************************************************************************************/
-
-
-
-
-
-
-
 
 
 
