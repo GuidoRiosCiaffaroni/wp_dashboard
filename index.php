@@ -78,7 +78,7 @@ $sist_name_flatline = 'flatline';
 // Descripcion  : Registro de hooks
 /******************************************************************************************/
 register_activation_hook(__FILE__, 'pdb_install_flatline');			// Instalacion de Base de datos 
-register_activation_hook(__FILE__, 'pdb_install_flatline');			// Adquirir Datos
+register_activation_hook(__FILE__, 'insert_flatline');			// Adquirir Datos
 
 
 

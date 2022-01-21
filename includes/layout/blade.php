@@ -27,12 +27,13 @@ global $global_data;
 
 /* Variables Globales para manejo de archivos */
 global $dir_file;               // Nombre de archivo a subir
-global $global_data;            // Almacenamiento de datos Globales
+
 
 /* Variables Globales Base de Datos */
 global $tabla_crud;             // Nombre de la tabla de sistema
 global $wpbc_db_version;        // Version del base de datos - utilizado para las actualizaciones
 global $sist_name_flatline;     // Nombre de la tabla de General del sistema 
+global $global_data;            // Almacenamiento de datos Globales
 
 /******************************************************************************************/
 
@@ -42,11 +43,12 @@ global $sist_name_flatline;     // Nombre de la tabla de General del sistema
 
 $tabla_crud = $wpdb->prefix . $sist_name_file;              // objeto base de datos
 $flatline 		= sanitize_text_field($_GET['flatline']);   // Datos obtenidos desde frontend_update.php id
-$token  		= sanitize_text_field($_GET['token']);      // Datos obtenidos desde frontend_update.php key_id
+
 
 echo " --> ". $flatline . "</br>" ;
 echo " --> ". $token . "</br>";
 
+// INSERT INTO `wp_flatline` (`id`, `flatline`, `create_at`) VALUES (NULL, '1', current_timestamp());
 
     $global_data = array(
                 'flatline'           => $flatline,
