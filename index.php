@@ -1,6 +1,6 @@
 <?php
 /**
-* Plugin Name: WP DashBoard Resume
+* Plugin Name: WP DashBoard 
 * Description: Ejemplo Basico 
 * Version:     1.0
 * Plugin URI: https://guidorios.cl/wp-basic-crud-plugin-wordpress/
