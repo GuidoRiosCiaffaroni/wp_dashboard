@@ -28,39 +28,41 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/layout/blade.php';         
 
 
 /*Funciones requeridas para administrar y gestionar */
-/*
+
 require_once(ABSPATH . "wp-admin" . '/includes/image.php');                     // Funciones para gestionar Imagenes 
 require_once(ABSPATH . "wp-admin" . '/includes/file.php');                      // Funciones para gestionar Archivos
 require_once(ABSPATH . "wp-admin" . '/includes/media.php');                     // Funciones para gestionar Archivos multimadia
 require_once(ABSPATH . 'wp-admin/includes/upgrade.php');                        // Funciones requeridas para gestionar la base de datos
-*/
 
-/*Variables globales*/
+
+/* Variables Globales Sistema */
 global $wpdb;                   // Datos del sistema
-global $wpbc_db_version;        // Version del base de datos - utilizado para las actualizaciones
-global $sist_name_file;         // Nombre de la tabla de General del sistema 
-global $sist_name_departament;  // Nombre de la tabla de Depart 
+
+
 global $tabla_crud;             // Nombre de la tabla de sistema
 global $user_id;                // ID del usuario
 global $status_user;            // Perfil del usuario 
-global $user_dirname;
-global $upload_dir;
 global $dir_file;               // Nombre de archivo a subir
 global $global_data;            // Almacenamiento de datos Globales
 global $file_name;  
 global $wp_session;             // Inicio sesion variables
 global $global_data;
 
+/* Variables Globales Base de Datos */
+global $wpbc_db_version;        // Version del base de datos - utilizado para las actualizaciones
+global $sist_name_flatline;         // Nombre de la tabla de General del sistema 
+
+
 $wpbc_db_version = '1.1.0'; 
 
 /*Nombre base de datos*/
-$sist_name_file = 'flatline';
+$sist_name_flatline = 'flatline';
 
 
 
 /* Instalacion de Base de datos */
 //pdb_install_flatline();
-//register_activation_hook(__FILE__, 'pdb_install_flatline');
+register_activation_hook(__FILE__, 'pdb_install_flatline');
 
 
 /* Adquirir Datos */
