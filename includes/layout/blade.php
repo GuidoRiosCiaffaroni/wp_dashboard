@@ -1,32 +1,48 @@
 <?php
-/*****************************************************************************************************************************************************************/
+/******************************************************************************************/
+// archivos     : blade.php
+// Funcion      :  
+// Objetos      : 
+// Direccion    : /layout/blade.php
+// Descripcion  : Insertar Informacion por Get 
+/******************************************************************************************/
 
-/* ************************************************************************************* */
-/* Insertar datos                                                                        */
-/* ************************************************************************************* */
-
-function flatline_insert()
+function insert_flatline()
 {
     
-/*Variables globales*/
-global $wpdb;                   // datos del sistema
-global $wpbc_db_version;        // Version del base de datos - utilizado para las actualizaciones
-global $sist_name_file;         // Nombre de la tabla de General del sistema 
-global $sist_name_departament;  // Nombre de la tabla de Depart 
-global $tabla_crud;             // nombre de la tabla de sistema
+
+/******************************************************************************************/
+// archivos     : blade.php
+// Funcion      : insert_flatline()
+// Objetos      : 
+// Descripcion  : Variables globales para el uso del sistema
+/******************************************************************************************/
+
+/* Variables Globales Sistema */
+global $wpdb;                   // Datos del sistema
 global $user_id;                // ID del usuario
 global $status_user;            // Perfil del usuario 
-global $user_dirname;
-global $upload_dir;
-global $dir_file;               // Nombre de archivo a subir
-global $global_data;            // Almacenamiento de datos Globales
-global $file_name;  
 global $wp_session;             // Inicio sesion variables
 global $global_data;
 
-$tabla_crud = $wpdb->prefix . $sist_name_file; // objeto base de datos
-$flatline 		= sanitize_text_field($_GET['flatline']); // Datos obtenidos desde frontend_update.php id
-$token  		= sanitize_text_field($_GET['token']); // Datos obtenidos desde frontend_update.php key_id
+/* Variables Globales para manejo de archivos */
+global $dir_file;               // Nombre de archivo a subir
+global $global_data;            // Almacenamiento de datos Globales
+
+/* Variables Globales Base de Datos */
+global $tabla_crud;             // Nombre de la tabla de sistema
+global $wpbc_db_version;        // Version del base de datos - utilizado para las actualizaciones
+global $sist_name_flatline;     // Nombre de la tabla de General del sistema 
+
+/******************************************************************************************/
+
+
+
+
+
+$tabla_crud = $wpdb->prefix . $sist_name_file;              // objeto base de datos
+$flatline 		= sanitize_text_field($_GET['flatline']);   // Datos obtenidos desde frontend_update.php id
+$token  		= sanitize_text_field($_GET['token']);      // Datos obtenidos desde frontend_update.php key_id
 
 echo " --> ". $flatline . "</br>" ;
 echo " --> ". $token . "</br>";
@@ -43,26 +59,47 @@ echo " --> ". $token . "</br>";
 
 }
 
-/*****************************************************************************************************************************************************************/
+add_shortcode('ShortCode_insert_flatline', 'insert_flatline'); // crear ShortCode_insert_flatline 
+
+/******************************************************************************************/
+
+
+
+
+
+
+
+
+
+
 function DahsBoard_Resume() 
 {
 
 
-/*Variables globales*/
-global $wpdb;                   // datos del sistema
-global $wpbc_db_version;        // Version del base de datos - utilizado para las actualizaciones
-global $sist_name_file;         // Nombre de la tabla de General del sistema 
-global $sist_name_departament;  // Nombre de la tabla de Depart 
-global $tabla_crud;             // nombre de la tabla de sistema
+/******************************************************************************************/
+// archivos     : blade.php
+// Funcion      : DahsBoard_Resume() 
+// Objetos      : 
+// Descripcion  : Variables globales para el uso del sistema
+/******************************************************************************************/
+
+/* Variables Globales Sistema */
+global $wpdb;                   // Datos del sistema
 global $user_id;                // ID del usuario
 global $status_user;            // Perfil del usuario 
-global $user_dirname;
-global $upload_dir;
-global $dir_file;               // Nombre de archivo a subir
-global $global_data;            // Almacenamiento de datos Globales
-global $file_name;  
 global $wp_session;             // Inicio sesion variables
 global $global_data;
+
+/* Variables Globales para manejo de archivos */
+global $dir_file;               // Nombre de archivo a subir
+global $global_data;            // Almacenamiento de datos Globales
+
+/* Variables Globales Base de Datos */
+global $tabla_crud;             // Nombre de la tabla de sistema
+global $wpbc_db_version;        // Version del base de datos - utilizado para las actualizaciones
+global $sist_name_flatline;     // Nombre de la tabla de General del sistema 
+
+/******************************************************************************************/
 
 
 $FirstTimeRegister = '1642091599';

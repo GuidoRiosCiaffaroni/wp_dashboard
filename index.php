@@ -33,6 +33,17 @@ require_once(ABSPATH . "wp-admin" . '/includes/media.php');                     
 require_once(ABSPATH . 'wp-admin/includes/upgrade.php');                        // Funciones requeridas para gestionar la base de datos
 
 
+/******************************************************************************************/
+
+
+/******************************************************************************************/
+// archivos     : index.php
+// Funcion      :  
+// Objetos      : 
+// Direccion  	: /
+// Descripcion  : Variables globales para el uso del sistema
+/******************************************************************************************/
+
 /* Variables Globales Sistema */
 global $wpdb;                   // Datos del sistema
 global $user_id;                // ID del usuario
@@ -49,7 +60,7 @@ global $tabla_crud;             // Nombre de la tabla de sistema
 global $wpbc_db_version;        // Version del base de datos - utilizado para las actualizaciones
 global $sist_name_flatline;     // Nombre de la tabla de General del sistema 
 
-
+/******************************************************************************************/
 
 
 /* Inicio de Variables Globales*/
@@ -58,14 +69,16 @@ $sist_name_flatline = 'flatline';
 
 
 
-/* Instalacion de Base de datos */
-//pdb_install_flatline();
-register_activation_hook(__FILE__, 'pdb_install_flatline');
 
-
-/* Adquirir Datos */
-//flatline_insert();
-//register_activation_hook(__FILE__, 'pdb_install_flatline');
+/******************************************************************************************/
+// archivos     : index.php
+// Funcion      :  
+// Objetos      : 
+// Direccion  	: /
+// Descripcion  : Registro de hooks
+/******************************************************************************************/
+register_activation_hook(__FILE__, 'pdb_install_flatline');			// Instalacion de Base de datos 
+register_activation_hook(__FILE__, 'pdb_install_flatline');			// Adquirir Datos
 
 
 
