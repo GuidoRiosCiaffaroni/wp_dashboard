@@ -62,12 +62,9 @@ global $sist_name_flatline;     // Nombre de la tabla de General del sistema
 
 /******************************************************************************************/
 
-
 /* Inicio de Variables Globales*/
 $wpbc_db_version = '1.1.0'; 
 $sist_name_flatline = 'flatline';
-
-
 
 
 /******************************************************************************************/
@@ -78,7 +75,7 @@ $sist_name_flatline = 'flatline';
 // Descripcion  : Registro de hooks
 /******************************************************************************************/
 register_activation_hook(__FILE__, 'pdb_install_flatline');			// Instalacion de Base de datos 
-register_activation_hook(__FILE__, 'insert_flatline');				// Adquirir Datos
+//register_activation_hook(__FILE__, 'insert_flatline');			// Adquirir Datos
 
 
 
