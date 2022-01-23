@@ -44,7 +44,7 @@ $table_name_flatline = $wpdb->prefix . $sist_name_flatline;  // objeto base de d
 $flatline 		= sanitize_text_field($_GET['flatline']);   // Datos obtenidos desde frontend_update.php id
 
 
-echo " --> ". $flatline . "</br>" ;
+//echo " --> ". $flatline . "</br>" ;
 
 // INSERT INTO `wp_flatline` (`id`, `flatline`, `create_at`) VALUES (NULL, '1', current_timestamp());
 
@@ -63,7 +63,13 @@ add_shortcode('ShortCode_insert_flatline', 'insert_flatline'); // crear ShortCod
 
 /******************************************************************************************/
 
-
+/******************************************************************************************/
+// archivos     : blade.php
+// Funcion      :  
+// Objetos      : 
+// Direccion    : /layout/blade.php
+// Descripcion  : Muestra Informacion almacenadas 
+/******************************************************************************************/
 
 function DahsBoard_Resume() 
 {
@@ -95,9 +101,95 @@ global $sist_name_flatline;     // Nombre de la tabla de General del sistema
 /******************************************************************************************/
 
 
+/******************************************************************************************/
+// archivos     : blade.php
+// Funcion      : UnixTimeRegister() 
+// Objetos      : 
+// Descripcion  : Determina los tiempos en formato Unix
+/******************************************************************************************/
+
+function UnixTimeRegister() 
+{
+
+
+/******************************************************************************************/
+// archivos     : blade.php
+// Funcion      : UnixTimeRegister() 
+// Objetos      : 
+// Descripcion  : Variables globales para el uso del sistema
+/******************************************************************************************/
+
+/* Variables Globales Sistema */
+global $wpdb;                   // Datos del sistema
+global $user_id;                // ID del usuario
+global $status_user;            // Perfil del usuario 
+global $wp_session;             // Inicio sesion variables
+global $global_data;
+
+/* Variables Globales para manejo de archivos */
+global $dir_file;               // Nombre de archivo a subir
+global $global_data;            // Almacenamiento de datos Globales
+
+/* Variables Globales Base de Datos */
+global $tabla_crud;             // Nombre de la tabla de sistema
+global $wpbc_db_version;        // Version del base de datos - utilizado para las actualizaciones
+global $sist_name_flatline;     // Nombre de la tabla de General del sistema 
+
+/******************************************************************************************/
+
+
+
+
+
+/******************************************************************************************/
+// archivos     : blade.php
+// Funcion      : UnixTimeRegister() 
+// Objetos      : 
+// Descripcion  : Querys para determinar los tiempos
+/******************************************************************************************/
+
+/* Conculta para determinar el ultimo de los registros */
+
+$tabla_crud = $wpdb->prefix . $sist_name_flatline; // objeto base de datos
+$query = 'SELECT flatline FROM '.$tabla_crud.' ORDER by ID ASC' ; // Query determina el ultiemo registro ingresado
+$registros = $wpdb->get_results($query);
+    
+foreach ($registros as $registros) 
+{
+    $LastTimeUnixRegister = $registros->flatline; 
+}  
+    
+/* Conculta para determinar el primero de los registros */
+
+$tabla_crud = $wpdb->prefix . $sist_name_flatline; // objeto base de datos
+$query = 'SELECT flatline FROM '.$tabla_crud.' ORDER by ID DESC' ; // Query determina el primer registro ingresado
+$registros = $wpdb->get_results($query);
+    
+foreach ($registros as $registros) 
+{
+    $FirstTimeUnixRegister = $registros->flatline; 
+}  
+
+
+
+
+
+
+    echo '-> LastTimeUnixRegister   : '.$LastTimeUnixRegister. '</br>' ;
+    echo '-> FirstTimeUnixRegister   : '.$FirstTimeUnixRegister. '</br>' ;
+
+
+}
+UnixTimeRegister(); 
+
 $FirstTimeRegister = '1642091599';
 $LastTimeRegister = time();
 $DiftTimeRegister =  $LastTimeRegister - $FirstTimeRegister;
+
+
+
+
+
 
 $date = new DateTime();
 $date->format('Y-m-d H:i:s');
@@ -107,94 +199,11 @@ $LastDateServer = $date->format('Y-m-d H:i:s');
 $DiftDateServer = $LastDateServer - $FirstDateServer; 
 
 
-  $tabla_crud = $wpdb->prefix . $sist_name_file; // objeto base de datos
-
-  $query = 'SELECT flatline FROM '.$tabla_crud.' ORDER by ID ASC' ;
-  $registros = $wpdb->get_results($query);
-
-  // nombre de los campos de la tabla
-  foreach ($registros as $registros) 
-  {
-    $flatline = $registros->flatline; 
-  }
-
-  echo '</br>'. $flatline. '</br>';
 
 
-        // nombre de los campos de la tabla
+
+
 /*
-        foreach ($registros as $registros) {
-            $result .= 
-            '
-                                        <tbody>
-                                            <tr class="odd gradeX">
-                                                <td>
-                                                    '.$registros->faltline.'
-                                                </td>
-                                            </tr>
-                                        </tbody>
-            ';
-        }
-
-        $template = '
-
-
-                            <div class="module">
-                                <div class="module-head">
-                                    <h3>
-                                        DataTables</h3>
-                                </div>
-                                <div class="module-body table">
-                                    <table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped  display"
-                                        width="100%">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    Rendering engine
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        
-{data}
-
-
-                                        <tfoot>
-                                            <tr>
-                                                <th>
-                                                    Rendering engine
-                                                </th>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                            </div>
-                    ';
-
-        return $content.str_replace('{data}', $result, $template);
-
-        echo '</br>';
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 echo '
                         <div class="content">
                             <div class="btn-controls">
@@ -264,12 +273,13 @@ echo '
                         </div>
 
 ';
-
+*/
 
 } 
 
+add_shortcode('ShortCode_DahsBoard_Resume', 'DahsBoard_Resume'); // crear ShortCode_insert_flatline 
 
-/*****************************************************************************************************************************************************************/
+/******************************************************************************************/
 
 
 
