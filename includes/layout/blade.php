@@ -171,12 +171,36 @@ foreach ($registros as $registros)
 }  
 
 
+/* Conculta para determinar el registro anterior al ultimo */
+
+
+// 'SELECT * FROM '.$tabla_crud.' WHERE id = (SELECT MAX(id) FROM '.$tabla_crud.' WHERE id < 2)' ;
+
+$tabla_crud = $wpdb->prefix . $sist_name_flatline; // objeto base de datos
+$query = 'SELECT * FROM '.$tabla_crud.' WHERE id = (SELECT MAX(id - 1) FROM '.$tabla_crud.')' ; 
+$registros = $wpdb->get_results($query);
+    
+foreach ($registros as $registros) 
+{
+    $PreviousTimeUnixRegister = $registros->flatline; 
+}  
+
+
+
+
+/* Diferencia entre el ultimo tiempo y el primero  */
+
+$DifTimeUnixRegister = $LastTimeUnixRegister - $FirstTimeUnixRegister;
 
 
 
 
     echo '-> LastTimeUnixRegister   : '.$LastTimeUnixRegister. '</br>' ;
     echo '-> FirstTimeUnixRegister   : '.$FirstTimeUnixRegister. '</br>' ;
+    echo '-> DifTimeUnixRegister   : '.$DifTimeUnixRegister. '</br>' ;
+    echo '-> PreviousTimeUnixRegister  : '.$PreviousTimeUnixRegister. '</br>' ;
+
+    echo "Fecha actual Unix con parámetro 'now' -->" . strtotime($LastTimeUnixRegister) . "<br>";
 
 
 }
