@@ -186,7 +186,7 @@ foreach ($registros as $registros)
 
     
 /******************************************************************************************/  
-// Conculta para determinar el primero de los registros 
+// Consulta para determinar el primero de los registros 
 /******************************************************************************************/
 
 $tabla_crud = $wpdb->prefix . $sist_name_flatline; // objeto base de datos
@@ -201,7 +201,7 @@ foreach ($registros as $registros)
 /******************************************************************************************/
 
 /******************************************************************************************/
-// Conculta para determinar el registro anterior al ultimo 
+// Conculta para determinar el registro anterior al ultimo flatline
 /******************************************************************************************/
 
 // 'SELECT * FROM '.$tabla_crud.' WHERE id = (SELECT MAX(id) FROM '.$tabla_crud.' WHERE id < 2)' ;
@@ -218,6 +218,23 @@ foreach ($registros as $registros)
 /******************************************************************************************/
 
 /******************************************************************************************/
+// Conculta para determinar el registro anterior al ultimo create_at
+/******************************************************************************************/
+
+// 'SELECT * FROM '.$tabla_crud.' WHERE id = (SELECT MAX(id) FROM '.$tabla_crud.' WHERE id < 2)' ;
+
+$tabla_crud = $wpdb->prefix . $sist_name_flatline; // objeto base de datos
+$query = 'SELECT * FROM '.$tabla_crud.' WHERE id = (SELECT MAX(id - 1) FROM '.$tabla_crud.')' ; 
+$registros = $wpdb->get_results($query);
+    
+foreach ($registros as $registros) 
+{
+    $PreviousTimeMysqlRegister = $registros->create_at; 
+}  
+
+/******************************************************************************************/
+
+/******************************************************************************************/
 // Diferencia entre el ultimo tiempo y el primero
 /******************************************************************************************/
 
@@ -225,14 +242,32 @@ $DifTimeUnixRegister = $LastTimeUnixRegister - $FirstTimeUnixRegister;
 
 /******************************************************************************************/
 
+/******************************************************************************************/
+// Diferencia entre el ultimo tiempo y el anterior flatline
+/******************************************************************************************/
 
-    echo '-> LastTimeUnixRegister       : '.$LastTimeUnixRegister. '</br>' ;
-    echo '-> FirstTimeUnixRegister      : '.$FirstTimeUnixRegister. '</br>' ;
-    echo '-> DifTimeUnixRegister        : '.$DifTimeUnixRegister. '</br>' ;
-    echo '-> PreviousTimeUnixRegister   : '.$PreviousTimeUnixRegister. '</br>' ;
-    echo '-> Fecha unix a date          :' . date('d/m/Y', $PreviousTimeUnixRegister) .'</br>' ;
-    echo '-> Fecha unix a gmdate        :' . gmdate("Y-m-d\TH:i:s\Z", $PreviousTimeUnixRegister) .'</br>' ;
-    echo '-> LastTimeCreate_at  :' . $LastTimeCreate_at .'</br>' ;
+$BetweenTimeUnixRegister = $LastTimeUnixRegister - $PreviousTimeUnixRegister;
+
+/******************************************************************************************/
+
+/******************************************************************************************/
+// Diferencia entre el ultimo tiempo y el anterior Mysql
+/******************************************************************************************/
+
+$BetweenTimeUnixRegister = $LastTimeUnixRegister - $PreviousTimeUnixRegister;
+
+/******************************************************************************************/
+
+
+
+
+    echo '-> LastTimeUnixRegister           : '.$LastTimeUnixRegister. '</br>' ;
+    echo '-> FirstTimeUnixRegister          : '.$FirstTimeUnixRegister. '</br>' ;
+    echo '-> DifTimeUnixRegister            : '.$DifTimeUnixRegister. '</br>' ;
+    echo '-> PreviousTimeUnixRegister       : '.$PreviousTimeUnixRegister. '</br>' ;
+    echo '-> BetweenTimeUnixRegister        : '.$BetweenTimeUnixRegister. '</br>' ;
+    echo '-> Fecha unix a gmdate            :' . gmdate("Y-m-d\TH:i:s\Z", $PreviousTimeUnixRegister) .'</br>' ;
+    echo '-> LastTimeCreate_at              :' . $LastTimeCreate_at .'</br>' ;
 
 
 
