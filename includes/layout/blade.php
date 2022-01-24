@@ -148,18 +148,46 @@ global $sist_name_flatline;     // Nombre de la tabla de General del sistema
 // Descripcion  : Querys para determinar los tiempos
 /******************************************************************************************/
 
-/* Conculta para determinar el ultimo de los registros */
+/******************************************************************************************/
+// Conculta para determinar el ultimo de los registros flatline
+/******************************************************************************************/
 
 $tabla_crud = $wpdb->prefix . $sist_name_flatline; // objeto base de datos
-$query = 'SELECT flatline FROM '.$tabla_crud.' ORDER by ID ASC' ; // Query determina el ultiemo registro ingresado
+$query = 'SELECT flatline FROM '.$tabla_crud.' ORDER by ID ASC' ; // Query determina el ultimo registro ingresado flatline
 $registros = $wpdb->get_results($query);
     
 foreach ($registros as $registros) 
 {
     $LastTimeUnixRegister = $registros->flatline; 
 }  
+
+/******************************************************************************************/
+
+
+/******************************************************************************************/
+// Conculta para determinar el ultimo de los registros create_at
+/******************************************************************************************/
+
+$tabla_crud = $wpdb->prefix . $sist_name_flatline; // objeto base de datos
+//echo '->tabla_crud ->'.$tabla_crud.'</br>';
+$query = 'SELECT create_at FROM '.$tabla_crud.' WHERE id = (SELECT MAX(id) FROM '.$tabla_crud.')' ; // Query determina el ultimo registro ingresado create_at
+//echo '->query ->'.$query.'</br>';
+$registros = $wpdb->get_results($query);
+//echo '->registros ->'.$registros.'</br>';  
+foreach ($registros as $registros) 
+{
+    $LastTimeCreate_at = $registros->create_at; 
+    echo '-> LastTimeCreate_at ->'.$LastTimeCreate_at.'</br>';  
+}  
+
+/******************************************************************************************/
+
+
+
     
-/* Conculta para determinar el primero de los registros */
+/******************************************************************************************/  
+// Conculta para determinar el primero de los registros 
+/******************************************************************************************/
 
 $tabla_crud = $wpdb->prefix . $sist_name_flatline; // objeto base de datos
 $query = 'SELECT flatline FROM '.$tabla_crud.' ORDER by ID DESC' ; // Query determina el primer registro ingresado
@@ -170,9 +198,11 @@ foreach ($registros as $registros)
     $FirstTimeUnixRegister = $registros->flatline; 
 }  
 
+/******************************************************************************************/
 
-/* Conculta para determinar el registro anterior al ultimo */
-
+/******************************************************************************************/
+// Conculta para determinar el registro anterior al ultimo 
+/******************************************************************************************/
 
 // 'SELECT * FROM '.$tabla_crud.' WHERE id = (SELECT MAX(id) FROM '.$tabla_crud.' WHERE id < 2)' ;
 
@@ -185,25 +215,29 @@ foreach ($registros as $registros)
     $PreviousTimeUnixRegister = $registros->flatline; 
 }  
 
+/******************************************************************************************/
 
-
-
-/* Diferencia entre el ultimo tiempo y el primero  */
+/******************************************************************************************/
+// Diferencia entre el ultimo tiempo y el primero
+/******************************************************************************************/
 
 $DifTimeUnixRegister = $LastTimeUnixRegister - $FirstTimeUnixRegister;
 
+/******************************************************************************************/
 
 
+    echo '-> LastTimeUnixRegister       : '.$LastTimeUnixRegister. '</br>' ;
+    echo '-> FirstTimeUnixRegister      : '.$FirstTimeUnixRegister. '</br>' ;
+    echo '-> DifTimeUnixRegister        : '.$DifTimeUnixRegister. '</br>' ;
+    echo '-> PreviousTimeUnixRegister   : '.$PreviousTimeUnixRegister. '</br>' ;
+    echo '-> Fecha unix a date          :' . date('d/m/Y', $PreviousTimeUnixRegister) .'</br>' ;
+    echo '-> Fecha unix a gmdate        :' . gmdate("Y-m-d\TH:i:s\Z", $PreviousTimeUnixRegister) .'</br>' ;
+    echo '-> LastTimeCreate_at  :' . $LastTimeCreate_at .'</br>' ;
 
-    echo '-> LastTimeUnixRegister   : '.$LastTimeUnixRegister. '</br>' ;
-    echo '-> FirstTimeUnixRegister   : '.$FirstTimeUnixRegister. '</br>' ;
-    echo '-> DifTimeUnixRegister   : '.$DifTimeUnixRegister. '</br>' ;
-    echo '-> PreviousTimeUnixRegister  : '.$PreviousTimeUnixRegister. '</br>' ;
-
-    echo "Fecha actual Unix con parámetro 'now' -->" . strtotime($LastTimeUnixRegister) . "<br>";
 
 
 }
+
 UnixTimeRegister(); 
 
 $FirstTimeRegister = '1642091599';
