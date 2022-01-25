@@ -149,40 +149,20 @@ global $sist_name_flatline;     // Nombre de la tabla de General del sistema
 /******************************************************************************************/
 
 /******************************************************************************************/
-// Conculta para determinar el ultimo de los registros flatline
+// Conculta para determinar el ultimo de los registros 
 /******************************************************************************************/
 
 $tabla_crud = $wpdb->prefix . $sist_name_flatline; // objeto base de datos
-$query = 'SELECT flatline FROM '.$tabla_crud.' ORDER by ID ASC' ; // Query determina el ultimo registro ingresado flatline
+$query = 'SELECT * FROM '.$tabla_crud.' ORDER by ID ASC' ; // Query determina el ultimo registro ingresado 
 $registros = $wpdb->get_results($query);
     
 foreach ($registros as $registros) 
 {
-    $LastTimeUnixRegister = $registros->flatline; 
+    $LastTimeUnixRegister = $registros->flatline;
+    $LastTimeMysqlRegister = $registros->create_at; 
 }  
 
 /******************************************************************************************/
-
-
-/******************************************************************************************/
-// Conculta para determinar el ultimo de los registros create_at
-/******************************************************************************************/
-
-$tabla_crud = $wpdb->prefix . $sist_name_flatline; // objeto base de datos
-//echo '->tabla_crud ->'.$tabla_crud.'</br>';
-$query = 'SELECT create_at FROM '.$tabla_crud.' WHERE id = (SELECT MAX(id) FROM '.$tabla_crud.')' ; // Query determina el ultimo registro ingresado create_at
-//echo '->query ->'.$query.'</br>';
-$registros = $wpdb->get_results($query);
-//echo '->registros ->'.$registros.'</br>';  
-foreach ($registros as $registros) 
-{
-    $LastTimeCreate_at = $registros->create_at; 
-    echo '-> LastTimeCreate_at ->'.$LastTimeCreate_at.'</br>';  
-}  
-
-/******************************************************************************************/
-
-
 
     
 /******************************************************************************************/  
@@ -190,12 +170,13 @@ foreach ($registros as $registros)
 /******************************************************************************************/
 
 $tabla_crud = $wpdb->prefix . $sist_name_flatline; // objeto base de datos
-$query = 'SELECT flatline FROM '.$tabla_crud.' ORDER by ID DESC' ; // Query determina el primer registro ingresado
+$query = 'SELECT * FROM '.$tabla_crud.' ORDER by ID DESC' ; // Query determina el primer registro ingresado
 $registros = $wpdb->get_results($query);
     
 foreach ($registros as $registros) 
 {
-    $FirstTimeUnixRegister = $registros->flatline; 
+    $FirstTimeUnixRegister = $registros->flatline;
+    $FirstTimeMysqlRegister  = $registros->create_at;  
 }  
 
 /******************************************************************************************/
@@ -203,8 +184,6 @@ foreach ($registros as $registros)
 /******************************************************************************************/
 // Conculta para determinar el registro anterior al ultimo flatline
 /******************************************************************************************/
-
-// 'SELECT * FROM '.$tabla_crud.' WHERE id = (SELECT MAX(id) FROM '.$tabla_crud.' WHERE id < 2)' ;
 
 $tabla_crud = $wpdb->prefix . $sist_name_flatline; // objeto base de datos
 $query = 'SELECT * FROM '.$tabla_crud.' WHERE id = (SELECT MAX(id - 1) FROM '.$tabla_crud.')' ; 
@@ -217,8 +196,26 @@ foreach ($registros as $registros)
 
 /******************************************************************************************/
 
+
 /******************************************************************************************/
 // Conculta para determinar el registro anterior al ultimo create_at
+/******************************************************************************************/
+
+$tabla_crud = $wpdb->prefix . $sist_name_flatline; // objeto base de datos
+$query = 'SELECT * FROM '.$tabla_crud.' WHERE id = (SELECT MAX(id - 1) FROM '.$tabla_crud.')' ; 
+$registros = $wpdb->get_results($query);
+    
+foreach ($registros as $registros) 
+{
+    $PreviousTimeMysqlRegister = $registros->create_at; 
+}  
+
+/******************************************************************************************/
+
+
+
+/******************************************************************************************/
+// Consulta para determinar el registro anterior al ultimo create_at
 /******************************************************************************************/
 
 // 'SELECT * FROM '.$tabla_crud.' WHERE id = (SELECT MAX(id) FROM '.$tabla_crud.' WHERE id < 2)' ;
@@ -240,6 +237,11 @@ foreach ($registros as $registros)
 
 $DifTimeUnixRegister = $LastTimeUnixRegister - $FirstTimeUnixRegister;
 
+
+
+$DifTimeMysqlRegister = $LastTimeMysqlRegister - $FirstTimeMysqlRegister;
+
+
 /******************************************************************************************/
 
 /******************************************************************************************/
@@ -247,27 +249,44 @@ $DifTimeUnixRegister = $LastTimeUnixRegister - $FirstTimeUnixRegister;
 /******************************************************************************************/
 
 $BetweenTimeUnixRegister = $LastTimeUnixRegister - $PreviousTimeUnixRegister;
-
-/******************************************************************************************/
-
-/******************************************************************************************/
-// Diferencia entre el ultimo tiempo y el anterior Mysql
-/******************************************************************************************/
-
-$BetweenTimeUnixRegister = $LastTimeUnixRegister - $PreviousTimeUnixRegister;
+$BetweenTimeMysqlRegister = $LastTimeMysqlRegister - $PreviousTimeMysqlRegister;
 
 /******************************************************************************************/
 
 
 
 
-    echo '-> LastTimeUnixRegister           : '.$LastTimeUnixRegister. '</br>' ;
     echo '-> FirstTimeUnixRegister          : '.$FirstTimeUnixRegister. '</br>' ;
-    echo '-> DifTimeUnixRegister            : '.$DifTimeUnixRegister. '</br>' ;
     echo '-> PreviousTimeUnixRegister       : '.$PreviousTimeUnixRegister. '</br>' ;
+    echo '-> LastTimeUnixRegister           : '.$LastTimeUnixRegister. '</br>' ;
+    echo '-> DifTimeUnixRegister            : '.$DifTimeUnixRegister. '</br>' ;
     echo '-> BetweenTimeUnixRegister        : '.$BetweenTimeUnixRegister. '</br>' ;
-    echo '-> Fecha unix a gmdate            :' . gmdate("Y-m-d\TH:i:s\Z", $PreviousTimeUnixRegister) .'</br>' ;
-    echo '-> LastTimeCreate_at              :' . $LastTimeCreate_at .'</br>' ;
+    echo '------------------------------------------------------------------------ </br>';
+    
+    echo '-> FirstTimeMysqlRegister          : '.$FirstTimeMysqlRegister. '</br>' ;
+    echo '-> PreviousTimeMysqlRegister       : '.$PreviousTimeMysqlRegister. '</br>' ;
+    echo '-> LastTimeMysqlRegister             :' . $LastTimeMysqlRegister.'</br>' ;
+    echo '-> DifTimeMysqlRegister             :' . $DifTimeMysqlRegister.'</br>' ;
+    echo '-> BetweenTimeMysqlRegister            :' . $BetweenTimeMysqlRegister.'</br>' ;
+
+
+    // echo '-> Fecha unix a gmdate            :' . gmdate("Y-m-d\TH:i:s\Z", $PreviousTimeUnixRegister) .'</br>' ;
+    
+    echo '------------------------------------------------------------------------ </br>';
+    
+
+    echo '-> FirstTimeMysqlRegister          : '. strtotime($FirstTimeMysqlRegister) . '</br>' ;
+    echo '-> PreviousTimeMysqlRegister       : '. strtotime($PreviousTimeMysqlRegister) . '</br>' ;
+    echo '-> LastTimeMysqlRegister             :' . strtotime($LastTimeMysqlRegister) .'</br>' ;
+    echo '-> DifTimeMysqlRegister             :' . strtotime($DifTimeMysqlRegister) .'</br>' ;
+    echo '-> BetweenTimeMysqlRegister            :' . strtotime($BetweenTimeMysqlRegister) .'</br>' ;
+
+
+
+
+
+
+    echo strtotime('2013-03-13');
 
 
 
