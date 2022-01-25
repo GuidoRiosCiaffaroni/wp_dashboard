@@ -236,10 +236,7 @@ foreach ($registros as $registros)
 /******************************************************************************************/
 
 $DifTimeUnixRegister = $LastTimeUnixRegister - $FirstTimeUnixRegister;
-
-
-
-$DifTimeMysqlRegister = $LastTimeMysqlRegister - $FirstTimeMysqlRegister;
+$DifTimeMysqlRegister = strtotime($LastTimeMysqlRegister) - strtotime($FirstTimeMysqlRegister);
 
 
 /******************************************************************************************/
@@ -249,9 +246,12 @@ $DifTimeMysqlRegister = $LastTimeMysqlRegister - $FirstTimeMysqlRegister;
 /******************************************************************************************/
 
 $BetweenTimeUnixRegister = $LastTimeUnixRegister - $PreviousTimeUnixRegister;
-$BetweenTimeMysqlRegister = $LastTimeMysqlRegister - $PreviousTimeMysqlRegister;
+$BetweenTimeMysqlRegister = strtotime($LastTimeMysqlRegister) - strtotime($PreviousTimeMysqlRegister);
 
 /******************************************************************************************/
+
+
+function secondsToTime($seconds) { $dtF = new DateTime("@0"); $dtT = new DateTime("@$seconds"); return $dtF->diff($dtT)->format('%a days, %h hours, %i minutes and %s seconds'); }
 
 
 
@@ -266,10 +266,15 @@ $BetweenTimeMysqlRegister = $LastTimeMysqlRegister - $PreviousTimeMysqlRegister;
     echo '-> FirstTimeMysqlRegister          : '.$FirstTimeMysqlRegister. '</br>' ;
     echo '-> PreviousTimeMysqlRegister       : '.$PreviousTimeMysqlRegister. '</br>' ;
     echo '-> LastTimeMysqlRegister             :' . $LastTimeMysqlRegister.'</br>' ;
-    echo '-> DifTimeMysqlRegister             :' . $DifTimeMysqlRegister.'</br>' ;
-    echo '-> BetweenTimeMysqlRegister            :' . $BetweenTimeMysqlRegister.'</br>' ;
+     echo '-> DifTimeMysqlRegister             :' .secondsToTime($DifTimeMysqlRegister) .'</br>' ;   
+    //echo '-> DifTimeMysqlRegister             :' . $DifTimeMysqlRegister.'</br>' ;
+    //echo '-> BetweenTimeMysqlRegister            :' . $BetweenTimeMysqlRegister.'</br>' ;
+    echo '-> BetweenTimeMysqlRegister            :' . secondsToTime($BetweenTimeMysqlRegister).'</br>' ;
 
 
+
+
+//echo date("Y-m-d H:i:s", substr("1477020641000", 0, 10));
     // echo '-> Fecha unix a gmdate            :' . gmdate("Y-m-d\TH:i:s\Z", $PreviousTimeUnixRegister) .'</br>' ;
     
     echo '------------------------------------------------------------------------ </br>';
@@ -280,13 +285,6 @@ $BetweenTimeMysqlRegister = $LastTimeMysqlRegister - $PreviousTimeMysqlRegister;
     echo '-> LastTimeMysqlRegister             :' . strtotime($LastTimeMysqlRegister) .'</br>' ;
     echo '-> DifTimeMysqlRegister             :' . strtotime($DifTimeMysqlRegister) .'</br>' ;
     echo '-> BetweenTimeMysqlRegister            :' . strtotime($BetweenTimeMysqlRegister) .'</br>' ;
-
-
-
-
-
-
-    echo strtotime('2013-03-13');
 
 
 
@@ -312,10 +310,6 @@ $DiftDateServer = $LastDateServer - $FirstDateServer;
 
 
 
-
-
-
-/*
 echo '
                         <div class="content">
                             <div class="btn-controls">
@@ -385,7 +379,7 @@ echo '
                         </div>
 
 ';
-*/
+
 
 } 
 
